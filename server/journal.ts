@@ -1,5 +1,4 @@
 "use server";
-export const revalidate = 0;
 
 import { db } from "@/db/drizzle";
 import { Journal, journalEntries, journalEntryTags } from "@/db/schema";
@@ -26,7 +25,6 @@ export async function getJournals() {
     throw error;
   }
 }
-
 
 export async function createJournal(journal: Omit<Journal, "id" | "createdAt" | "updatedAt"> & { tags?: string[] }) {
   try {

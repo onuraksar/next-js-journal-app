@@ -3,6 +3,7 @@ import JournalDialog from "@/components/dialogs/journal-dialog";
 import TagDialog from "@/components/dialogs/tag-dialog";
 import JournalTable from "@/components/journals-table";
 import { getTags } from "@/server/tag";
+export const revalidate = 0;
 
 export default async function Home() {
   const tags = await getTags();
