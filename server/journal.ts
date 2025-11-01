@@ -1,4 +1,5 @@
 "use server";
+export const revalidate = 0;
 
 import { db } from "@/db/drizzle";
 import { Journal, journalEntries, journalEntryTags } from "@/db/schema";
