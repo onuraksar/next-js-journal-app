@@ -1,6 +1,7 @@
 "use client"
 
 import { z } from "zod"
+import { moodEnum } from "@/db/schema";
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
@@ -21,9 +22,10 @@ import { useState } from "react"
 import { Loader2 } from "lucide-react"
 import { toast } from "sonner"
 import { useRouter } from "next/navigation"
-import { Journal, JournalWithTags, Tag } from "@/db/schema"
+import { JournalWithTags, Tag } from "@/db/schema"
 import { Textarea } from "../ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select"
+import getMoodIcon from "@/lib/moodIcon"
 
 const formSchema = z.object({
     title: z.string().min(2).max(50),
@@ -127,11 +129,14 @@ const JournalForm = ({onSuccess, journal, tags} : JournalFormProps ) => {
                                     </SelectTrigger>
                                 </FormControl>
                                 <SelectContent>
-                                    <SelectItem value="happy">Happy</SelectItem>
-                                    <SelectItem value="sad">Sad</SelectItem>
-                                    <SelectItem value="neutral">Neutral</SelectItem>
-                                    <SelectItem value="anxious">Anxious</SelectItem>
-                                    <SelectItem value="excited">Excited</SelectItem>
+                                    {moodEnum.enumValues.map((mood) => (
+                                        <SelectItem key={mood} value={mood}>
+                                            <div className="flex items-center gap-2">
+                                                {getMoodIcon(mood)}
+                                                <span className="capitalize">{mood}</span>
+                                            </div>
+                                        </SelectItem>
+                                    ))}
                                 </SelectContent>
                             </Select>
                             <FormMessage />

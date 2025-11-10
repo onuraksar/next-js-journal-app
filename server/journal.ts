@@ -2,7 +2,7 @@
 
 import { db } from "@/db/drizzle";
 import { Journal, journalEntries, journalEntryTags } from "@/db/schema";
-import { eq, asc } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 import { v4 as uuid } from "uuid";
 
 export async function getJournals() {

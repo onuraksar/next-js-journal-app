@@ -4,10 +4,11 @@ import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from ".
 import JournalDeleteButton from "./journal-delete-button";
 import JournalUpdateButton from "./journal-update.button";
 import { getTags } from "@/server/tag";
+import getMoodIcon from "@/lib/moodIcon";
+import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
 
 const JournalTable = async() => {
     const journals = await getJournals();
-    console.log('journals:', journals)
     const tags = await getTags();
     return (
         <Table>
@@ -25,7 +26,16 @@ const JournalTable = async() => {
                     <TableCell>{journal.createdAt?.toLocaleString()}</TableCell>
                     <TableCell>{journal.title}</TableCell>
                     <TableCell>{journal.entry}</TableCell>
-                    <TableCell>{journal.mood}</TableCell>
+                    <TableCell className="border-l-1 border-r-1 ">
+                        <Tooltip>
+                            <TooltipTrigger asChild>
+                                {getMoodIcon(journal.mood, "ml-auto mr-auto")}
+                            </TooltipTrigger>
+                            <TooltipContent side="bottom">
+                                {journal.mood}
+                            </TooltipContent>
+                        </Tooltip>
+                    </TableCell>
                     {/* todo: make isfavorite a button (with start icon) */}
                     <TableCell className="border-l-1 border-r-1">
                         <div className="flex gap-1">
